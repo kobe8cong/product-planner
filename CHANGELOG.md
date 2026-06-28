@@ -5,6 +5,82 @@ All notable changes to Product Planner will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-06-28
+
+### 🎉 Major Update: From Passive Validation to Active Discovery
+
+v1.1 transforms Product Planner from a passive validation tool into a proactive product advisor that can discover opportunities for you.
+
+### ✨ Added
+
+#### 🔍 Discovery Mode - NEW
+- **Proactive Opportunity Finding**: AI now actively suggests project opportunities
+- **Context Collection**: Understands your skills, time, goals, and interests
+- **Market Trend Analysis**: Scans GitHub Trending, Hacker News, Reddit, Product Hunt
+- **Opportunity Scoring System**: 
+  - Multi-dimensional scoring: Market Demand (25%) + Competition (20%) + Technical Fit (20%) + Time to MVP (15%) + Ecosystem Value (20%)
+  - Ranks 5+ opportunities, highlights top 3
+- **New Command**: `/product-plan discover`
+
+#### 🤖 New AI Agents
+- **trend-analyzer**: Market trends, pain points, technology opportunities, gap discovery
+- **opportunity-scout**: Project identification, feasibility evaluation, scoring and ranking
+
+#### ✅ Quick Validation - NEW
+- **Phase 0 in Validation Mode**: Rapid assessment before full analysis
+- **Obsolescence Detection**: Catches outdated ideas (e.g., "AI commit tools" - now built-in)
+- **Red Flag Detection**: Technical, market, execution, problem-solution fit issues
+- **Go/Caution/Stop Recommendations**: Clear decision before investing time
+- **Alternative Suggestions**: If rejected, suggests better directions
+- **New Agent**: `idea-validator`
+
+#### 🔀 Dual-Mode System
+- **Mode Selection**: Choose Discovery or Validation at start
+- **Four Command Variants**:
+  - `/product-plan discover` - Launch Discovery Mode
+  - `/product-plan validate [idea]` - Launch Validation Mode
+  - `/product-plan` - Interactive mode selection
+  - `/product-plan [idea]` - Defaults to Validation (legacy support)
+- **Seamless Transition**: Deep dive from Discovery enters full Validation
+
+### 🔄 Changed
+- **README.md**: Updated to reflect dual-mode functionality
+- **SKILL.md**: Complete rewrite with new workflows and agent documentation
+- **Positioning**: From "Transform ideas" to "Discover opportunities or validate ideas"
+- **Execution Time**: Discovery ~10-15 min, Validation ~15-20 min (with quick validation)
+
+### 💡 Improved
+- **Smarter Routing**: Avoids wasting time on non-viable ideas
+- **Evidence-Based**: All recommendations backed by specific market data and links
+- **User-Centric**: Matches opportunities to actual context, skills, and constraints
+- **Fail-Fast**: Quick Validation catches problems in 10 minutes vs. full 20-minute analysis
+
+### 📊 Impact
+
+| Capability | v1.0 | v1.1 |
+|------------|------|------|
+| **Find Opportunities** | ❌ | ✅ |
+| **Validate Ideas** | ✅ | ✅ |
+| **Detect Obsolete Ideas** | ❌ | ✅ |
+| **Market Trend Analysis** | ❌ | ✅ |
+| **Opportunity Scoring** | ❌ | ✅ |
+| **AI Agents** | 3 | 6 |
+| **Mode Options** | 1 | 2 |
+
+### 🎯 Why v1.1?
+
+**User Insight**: "I want a product manager that can SUGGEST what to build, not just validate my ideas."
+
+**Problem Solved**: 
+- v1.0 was reactive (you bring ideas)
+- v1.1 is proactive (AI finds opportunities)
+- Quick validation prevents wasting time on dead ends
+
+**Real Example**: 
+- User suggested "AI commit message generator"
+- Quick Validation detected: Cursor/Claude Code already do this automatically
+- Recommended alternatives in emerging spaces instead
+
 ## [1.0.0] - 2026-06-27
 
 ### 🎉 Initial Release
@@ -81,26 +157,21 @@ First stable release of Product Planner - AI Product Manager for Developers.
 
 ## [Unreleased]
 
-### Planned for v1.1
-- [ ] Update existing product plans
-- [ ] Export to multiple formats (PDF, Notion, etc.)
-- [ ] Custom template support
-- [ ] Improved competitor discovery
-- [ ] User feedback integration
+### Under Consideration for v1.2
+- [ ] Save discovered opportunities for later review
+- [ ] Compare multiple opportunities side-by-side
+- [ ] Refine opportunity scores based on user feedback
+- [ ] Track market trends over time
 
 ### Planned for v2.0
+- [ ] Update existing product plans
+- [ ] Export to multiple formats (PDF, Notion, etc.)
 - [ ] Data visualizations (charts, graphs)
 - [ ] Integration with GitHub Issues
 - [ ] Integration with Linear/Jira
 - [ ] Team collaboration features
 - [ ] Pricing strategy analysis
 - [ ] A/B testing recommendations
-
-### Under Consideration
-- [ ] Analytics dashboard
-- [ ] User feedback analysis
-- [ ] Continuous market monitoring
-- [ ] Community templates marketplace
 
 ---
 
@@ -140,10 +211,17 @@ git clone https://github.com/kobe8cong/product-planner.git
 
 ## Development History
 
+### 2026-06-28
+- 🎯 User testing revealed v1.0 limitation: only validates, doesn't discover
+- 💡 Designed v1.1 with Discovery Mode and Quick Validation
+- 🤖 Implemented 3 new agents (trend-analyzer, opportunity-scout, idea-validator)
+- 📝 Updated all documentation
+- 🚀 v1.1.0 released
+
 ### 2026-06-27
 - ✅ Product analysis completed
 - ✅ Architecture design finalized
-- ✅ Core agents implemented
+- ✅ Core agents implemented (market-researcher, competitor-analyzer, product-strategist)
 - ✅ Templates created
 - ✅ Documentation written
 - ✅ Examples prepared
@@ -163,5 +241,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute to Product Planner.
 
 ---
 
+[1.1.0]: https://github.com/kobe8cong/product-planner/releases/tag/v1.1.0
 [1.0.0]: https://github.com/kobe8cong/product-planner/releases/tag/v1.0.0
-[Unreleased]: https://github.com/kobe8cong/product-planner/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/kobe8cong/product-planner/compare/v1.1.0...HEAD

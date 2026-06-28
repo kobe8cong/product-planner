@@ -1,21 +1,25 @@
 # Product Planner
 
-> AI Product Manager for Developers - Transform ideas into well-researched product plans.
+> AI Product Manager for Developers - Discover opportunities or validate your ideas with data-driven analysis.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-blue)](https://claude.ai/code)
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://github.com/kobe8cong/product-planner/releases)
 
-Product Planner brings systematic product thinking to your development workflow. Instead of jumping straight into code, it guides you through market research, competitive analysis, MVP definition, and strategic planning—all powered by AI and integrated seamlessly into Claude Code.
+Product Planner brings systematic product thinking to your development workflow. It can **actively discover** high-potential project opportunities based on market trends, or **validate** your existing ideas through comprehensive research—all powered by AI and integrated seamlessly into Claude Code.
 
 ## ✨ Why Product Planner?
 
 **The Problem:** Developers are great at building, but often:
+- ❌ Don't know what to build next
 - ❌ Build features nobody wants
-- ❌ Miss market opportunities
-- ❌ Waste time on wrong priorities  
+- ❌ Miss market opportunities  
+- ❌ Waste time on outdated ideas
 - ❌ Launch without strategy
 
 **The Solution:** Product Planner provides:
+- ✅ **Proactive opportunity discovery** (NEW in v1.1)
+- ✅ **Quick idea validation** to avoid wasted effort (NEW in v1.1)
 - ✅ Systematic product methodology
 - ✅ AI-powered market research
 - ✅ Data-driven feature prioritization
@@ -24,12 +28,22 @@ Product Planner brings systematic product thinking to your development workflow.
 
 ## 🚀 Quick Start
 
+### Discovery Mode - Find Opportunities
 ```bash
-# In Claude Code
-/product-plan Your amazing product idea here
+# Let AI suggest projects based on market analysis
+/product-plan discover
 ```
 
-That's it! In 5-10 minutes, you'll have:
+### Validation Mode - Analyze Your Idea
+```bash
+# Validate your specific idea
+/product-plan validate Your amazing product idea here
+```
+
+That's it! In 10-20 minutes, you'll have:
+- 🔍 Market trend analysis (Discovery mode)
+- 🎯 Top project recommendations (Discovery mode)
+- ✅ Quick validation check (Validation mode)
 - 📊 Complete market analysis
 - 🎯 Defined MVP scope
 - 🗺️ Product roadmap
@@ -38,7 +52,33 @@ That's it! In 5-10 minutes, you'll have:
 
 ## 🎯 What It Does
 
-Product Planner runs a **5-phase analysis workflow**:
+Product Planner offers **two powerful modes**:
+
+### 🔍 Discovery Mode - Find Opportunities
+
+**Can't decide what to build?** Let Product Planner discover opportunities for you.
+
+1. **Context Collection** - Understand your skills, time, goals
+2. **Trend Analysis** - Scan GitHub, HN, Reddit, Product Hunt
+3. **Opportunity Scout** - Identify and score 5+ project ideas
+4. **Recommendations** - Present top 3 with detailed analysis
+5. **Deep Dive** - Choose one for full product planning
+
+**Uses specialized agents:**
+- `trend-analyzer` - Market trends and pain point discovery
+- `opportunity-scout` - Project identification and scoring
+
+### ✅ Validation Mode - Analyze Your Idea
+
+**Have an idea?** Let Product Planner validate it thoroughly.
+
+**Phase 0: Quick Validation (NEW)**
+- Checks if idea is obsolete (e.g., AI now does this automatically)
+- Validates market demand with evidence
+- Identifies red flags early
+- Recommends: Go / Caution / Stop
+
+**If validation passes:**
 
 ### Phase 1: Project Understanding 🎯
 Clarifies your vision through strategic questions.
@@ -76,6 +116,12 @@ your-project/
 
 Product Planner uses specialized agents for deep analysis:
 
+### Discovery Mode Agents
+- **trend-analyzer** - Scans GitHub, HN, Reddit, Product Hunt for trends and opportunities
+- **opportunity-scout** - Identifies and scores concrete project opportunities
+
+### Validation Mode Agents
+- **idea-validator** - Quick validation and red flag detection (NEW in v1.1)
 - **market-researcher** - Market dynamics and user needs analysis
 - **competitor-analyzer** - Competitive intelligence and differentiation
 - **product-strategist** - Strategic synthesis and prioritization

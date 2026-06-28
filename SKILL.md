@@ -1,23 +1,29 @@
 # Product Planner
 
-AI Product Manager for Developers - Transform your ideas into well-researched product plans.
+AI Product Manager for Developers - Discover opportunities or validate your ideas with data-driven analysis.
 
 ## Overview
 
-Product Planner brings systematic product thinking to your development workflow. Instead of jumping straight into code, it guides you through market research, competitive analysis, MVP definition, and strategic planning - all powered by AI and integrated seamlessly into Claude Code.
+Product Planner brings systematic product thinking to your development workflow. It can **actively discover** high-potential project opportunities based on market trends, or **validate** your existing ideas through comprehensive research. Powered by AI and integrated seamlessly into Claude Code.
 
 ## Command
 
-### `/product-plan [project description]`
+### `/product-plan [optional: project description]`
 
-Launch a comprehensive product planning workflow that analyzes your project idea and generates a complete Product Requirements Document (PRD).
+Launch Product Planner in one of two modes:
 
 **Usage:**
 ```bash
-# Interactive mode - guided questions
+# Interactive mode - choose Discovery or Validation
 /product-plan
 
-# Quick start - provide description directly
+# Discovery mode - find opportunities for you
+/product-plan discover
+
+# Validation mode - analyze your idea
+/product-plan validate [your project idea]
+
+# Legacy support - defaults to mode selection
 /product-plan An AI-powered CLI tool for generating git commit messages
 
 # Show help
@@ -26,15 +32,58 @@ Launch a comprehensive product planning workflow that analyzes your project idea
 
 ## What It Does
 
-Product Planner runs a **5-phase analysis workflow**:
+Product Planner offers **two powerful modes**:
 
-### Phase 1: Project Understanding 🎯
+---
+
+### 🔍 Discovery Mode - Find Opportunities
+
+Can't decide what to build? Let Product Planner discover opportunities for you.
+
+**Workflow:**
+1. **Context Collection** - Understand your skills, time, goals, interests
+2. **Trend Analysis** - Scan GitHub, Hacker News, Reddit, Product Hunt for trends
+3. **Opportunity Scout** - Identify 5+ concrete project ideas, score them
+4. **Recommendations** - Present top 3 opportunities with detailed analysis
+5. **Deep Dive** - Choose one to run full product analysis
+
+**Launches 2 agents in parallel:**
+- `trend-analyzer` - Market trends and pain point discovery
+- `opportunity-scout` - Project identification and scoring
+
+**Best for:**
+- Looking for your next project idea
+- Want data-driven recommendations
+- Curious what's hot in the market
+- Need validation before committing to an idea
+
+---
+
+### ✅ Validation Mode - Analyze Your Idea
+
+Have an idea? Let Product Planner validate it thoroughly.
+
+**Workflow:**
+1. **Quick Validation** - Rapid assessment (is this still relevant? any red flags?)
+2. **Market Research** - Deep dive into market, users, competitors
+3. **Product Definition** - Value prop, features, MVP scope
+4. **Roadmap Planning** - Version evolution and timelines
+5. **Success Metrics & GTM** - KPIs and launch strategy
+
+**Phase 0: Quick Validation (NEW)**
+- **Launches:** `idea-validator` agent
+- Checks if idea is obsolete (e.g., AI now does this automatically)
+- Identifies red flags before investing time
+- Recommends: Continue / Adjust / Try Discovery Mode instead
+
+**If validation passes:**
+
+**Phase 1: Project Understanding 🎯**
 - Clarifies your project vision
 - Identifies target users and goals
 - Defines constraints and requirements
-- Ensures we're solving the right problem
 
-### Phase 2: Market Research 📊
+**Phase 2: Market Research 📊**
 - Analyzes market size and trends
 - Identifies target user personas
 - Discovers and analyzes competitors
@@ -44,7 +93,7 @@ Product Planner runs a **5-phase analysis workflow**:
 - `market-researcher` - Market and user analysis
 - `competitor-analyzer` - Competitive intelligence
 
-### Phase 3: Product Definition 💎
+**Phase 3: Product Definition 💎**
 - Defines core value proposition
 - Creates user personas and pain points
 - Generates comprehensive feature list
@@ -53,19 +102,25 @@ Product Planner runs a **5-phase analysis workflow**:
 
 **Asks for your confirmation before proceeding.**
 
-### Phase 4: Roadmap Planning 🗺️
+**Phase 4: Roadmap Planning 🗺️**
 - Defines v1.0 MVP timeline and scope
 - Plans v1.1, v2.0+ evolution
 - Assesses technical feasibility
 - Estimates resources and risks
 - Sets milestone targets
 
-### Phase 5: Success Metrics & GTM 📈
+**Phase 5: Success Metrics & GTM 📈**
 - Defines North Star Metric
 - Sets up KPI framework
 - Creates measurement plan
 - Designs Go-to-Market strategy
 - Recommends launch channels and timing
+
+**Best for:**
+- You have a specific idea to analyze
+- Want to validate before building
+- Need comprehensive product planning
+- Creating PRD for team/investors
 
 ## Output
 
@@ -107,8 +162,44 @@ your-project/
 
 ## Workflow
 
+### Discovery Mode Flow
 ```
-User Input: Project Idea
+/product-plan discover
+         ↓
+  Mode: Discovery
+         ↓
+Context Collection
+  (skills, goals, time, interests)
+         ↓
+  Trend Analysis
+  ↓ (parallel agents)
+├─ trend-analyzer (market trends)
+└─ opportunity-scout (score projects)
+         ↓
+ Top 5 Opportunities
+   (ranked by score)
+         ↓
+   User Selects
+         ↓
+    Deep Dive
+  (run Validation Mode phases 1-5)
+         ↓
+   Generate PRD
+```
+
+### Validation Mode Flow
+```
+/product-plan validate [idea]
+         ↓
+   Mode: Validation
+         ↓
+  Quick Validation
+  ↓ (idea-validator)
+[Check relevance, demand, red flags]
+         ↓
+  🟢 Pass / 🟡 Caution / 🔴 Stop
+         ↓
+    [If Pass]
          ↓
     [Phase 1]
 Project Understanding
@@ -157,21 +248,47 @@ Here's what a generated PRD includes:
 
 Product Planner uses specialized AI agents for deep analysis:
 
-### market-researcher
+### Discovery Mode Agents
+
+#### trend-analyzer
+Analyzes market dynamics and emerging opportunities:
+- Scans GitHub Trending, Hacker News, Reddit, Product Hunt
+- Identifies hot trends, pain points, technology opportunities
+- Discovers market gaps with validated demand
+- Ranks findings by relevance to user context
+
+#### opportunity-scout
+Transforms trends into concrete project opportunities:
+- Generates 5+ specific project ideas
+- Evaluates feasibility and competition
+- Scores using multi-dimensional matrix
+- Matches opportunities to user skills and goals
+
+### Validation Mode Agents
+
+#### idea-validator
+Quick validation and red flag detection:
+- Checks if idea is still relevant (technology displacement)
+- Validates market demand with evidence
+- Assesses competition saturation
+- Identifies blocking issues early
+- Recommends: Go / Caution / Stop
+
+#### market-researcher
 Analyzes market dynamics and user needs:
 - Market size estimation (TAM/SAM/SOM)
 - Trend analysis and drivers
 - User persona generation
 - Pain point identification
 
-### competitor-analyzer
+#### competitor-analyzer
 Provides competitive intelligence:
 - Discovers similar products/projects
 - Analyzes features and positioning
 - Compares GitHub metrics (stars, activity)
 - Identifies differentiation opportunities
 
-### product-strategist
+#### product-strategist
 Synthesizes insights into strategy:
 - Defines value proposition
 - Prioritizes features
@@ -180,11 +297,14 @@ Synthesizes insights into strategy:
 
 ## Features
 
+✅ **Dual Mode System** - Discover opportunities OR validate your ideas  
+✅ **Proactive Discovery** - AI suggests projects based on market analysis  
+✅ **Quick Validation** - Detect obsolete ideas and red flags early  
 ✅ **Comprehensive Analysis** - Covers market, competition, product, and strategy  
 ✅ **Data-Driven** - Uses real market data and competitive intelligence  
 ✅ **Structured Output** - Professional PRD format ready to share  
 ✅ **Interactive** - Asks clarifying questions to understand your vision  
-✅ **Fast** - Complete analysis in 5-10 minutes  
+✅ **Fast** - Discovery in 10-15 min, Validation in 15-20 min  
 ✅ **Integrated** - Works seamlessly in your Claude Code workflow  
 ✅ **Flexible** - Can update existing plans or start fresh  
 ✅ **Export-Friendly** - Markdown format, easy to share and version control  
@@ -269,61 +389,282 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 When this skill is invoked, follow this workflow:
 
-1. **Parse Input**
-   - Check if project description provided
-   - If not, ask for it interactively
-   - Validate input is sufficient
+### Step 1: Parse Input & Mode Selection
 
-2. **Execute Phase 1: Understanding**
-   - Present clarifying questions
-   - Collect answers
-   - Summarize project brief
-   - Ask for confirmation
+**Check user input:**
+- If `/product-plan discover` → Discovery Mode
+- If `/product-plan validate [idea]` → Validation Mode with idea
+- If `/product-plan [idea]` → Default to Validation Mode
+- If `/product-plan` (no args) → Show mode selection
 
-3. **Execute Phase 2: Market Research**
-   - Launch `market-researcher` agent with project brief
-   - Launch `competitor-analyzer` agent with project brief (parallel)
-   - Wait for both agents to complete
-   - Synthesize findings
-   - Present key insights
+**Mode Selection Prompt:**
+```
+Product Planner: AI Product Manager for Developers
 
-4. **Execute Phase 3: Product Definition**
-   - Define value proposition
-   - Generate user personas
-   - List all possible features
-   - Create priority matrix
-   - Propose MVP scope
-   - **Ask user to confirm MVP** before proceeding
+I can help you in two ways:
 
-5. **Execute Phase 4: Roadmap**
-   - Define v1.0 MVP details
-   - Plan v1.1, v2.0 evolution
-   - Estimate timelines
-   - Assess risks
+1️⃣  Discover Opportunities
+    I'll analyze market trends, identify gaps, and recommend 
+    project ideas that match your skills and goals.
+    
+    → Choose this if you're looking for ideas
 
-6. **Execute Phase 5: Success Metrics & GTM**
-   - Define North Star Metric
-   - Set KPIs
-   - Create GTM plan
-   - Recommend channels
+2️⃣  Validate Your Idea
+    I'll analyze your existing project idea with market research,
+    competitor analysis, and strategic planning.
+    
+    → Choose this if you already have an idea
 
-7. **Generate Output**
-   - Create `docs/product/` directory if not exists
-   - Generate PRD.md (comprehensive)
-   - Generate individual phase reports
-   - Save all files
+Which mode would you like?
+```
 
-8. **Summary**
-   - List generated files
-   - Highlight key recommendations
-   - Suggest next steps
+---
+
+### Discovery Mode Workflow
+
+**Phase 0: Context Collection**
+
+Ask the user:
+```
+Let me understand your context:
+
+1. Your Skills & Experience
+   - Primary tech stack? (e.g., JavaScript/TypeScript, Python, Go)
+   - Years of experience? (Beginner / Intermediate / Expert)
+   - Team or solo? (Solo / Small team / Have team)
+
+2. Available Resources
+   - Time commitment? (5-10h/week, 10-20h/week, 20+h/week, full-time)
+   - Budget for APIs/services? (Free only, <$50/mo, <$200/mo, flexible)
+   - Existing audience? (GitHub followers, Twitter, blog readers)
+
+3. Your Goals (select all that apply)
+   a) Build portfolio / Get GitHub stars
+   b) Generate income / Build a business
+   c) Learn new technologies
+   d) Solve a personal pain point
+   e) Contribute to open source ecosystem
+
+4. Interest Areas (select up to 3)
+   a) AI / Machine Learning
+   b) Developer Tools
+   c) Productivity / Automation
+   d) Web3 / Blockchain
+   e) SaaS / B2B Tools
+   f) Open Source Infrastructure
+   g) Content / Media Tools
+   h) Other: [specify]
+
+5. Constraints / Preferences
+   - Any topics you want to avoid?
+   - Must be open source? Or can be commercial?
+   - Prefer CLI, Web, or doesn't matter?
+```
+
+**Phase 1: Trend Analysis**
+- Launch `trend-analyzer` agent with user context
+- Agent scans: GitHub Trending, Hacker News, Reddit, Product Hunt
+- Agent outputs: Hot trends, pain points, technology opportunities, market gaps
+
+**Phase 2: Opportunity Scout**
+- Launch `opportunity-scout` agent with:
+  - User context
+  - Trend analysis results
+- Agent generates 5+ concrete project opportunities
+- Agent scores using matrix: Market Demand (25%) + Competition (20%) + Technical Fit (20%) + Time to MVP (15%) + Ecosystem Value (20%)
+- Agent ranks by total score
+
+**Phase 3: Present Recommendations**
+```
+Based on your context, I've identified 5 high-potential opportunities.
+
+Here are your top 3 recommendations:
+
+🥇 #1: [Name] (Score: 85/100)
+    [One-line description]
+    Best fit because: [Reason]
+
+🥈 #2: [Name] (Score: 78/100)
+    [One-line description]
+    Best fit because: [Reason]
+
+🥉 #3: [Name] (Score: 72/100)
+    [One-line description]
+    Best fit because: [Reason]
+
+Want to see:
+a) Full details on all 5 opportunities
+b) Deep dive into #1
+c) Deep dive into #2
+d) Deep dive into #3
+e) Different direction (tell me what)
+```
+
+**Phase 4: User Selection & Deep Dive**
+- If user chooses to deep dive on an opportunity
+- Run full Validation Mode analysis (Phases 1-5) on that specific idea
+- Generate complete PRD
+
+---
+
+### Validation Mode Workflow
+
+**Phase 0: Quick Validation (NEW)**
+- Launch `idea-validator` agent with user's project idea
+- Agent checks:
+  - Time sensitivity (is this obsolete? AI solved it?)
+  - Market demand (evidence of need)
+  - Competition saturation
+  - Red flags (technical, market, execution)
+- Agent outputs: 🟢 Go / 🟡 Caution / 🔴 Stop
+
+**If 🔴 Stop:**
+```
+Quick Validation: Not Recommended
+
+[Explanation of issues]
+
+Alternative directions to consider:
+1. [Alternative 1]
+2. [Alternative 2]
+
+Would you like to:
+a) Switch to Discovery Mode to find better opportunities
+b) Adjust your idea based on these findings
+c) Proceed anyway (I'll do full analysis)
+```
+
+**If 🟡 Caution:**
+```
+Quick Validation: Proceed with Caution
+
+[Specific concerns]
+
+Recommendation: [Adjust focus / Narrow scope / etc]
+
+Continue with full analysis? (yes/no)
+```
+
+**If 🟢 Go:**
+Continue to Phase 1 (existing workflow)
+
+**Phase 1: Project Understanding**
+- Present clarifying questions
+- Collect answers
+- Summarize project brief
+- Ask for confirmation
+
+**Phase 2: Market Research**
+- Launch `market-researcher` agent with project brief
+- Launch `competitor-analyzer` agent with project brief (parallel)
+- Wait for both agents to complete
+- Synthesize findings
+- Present key insights
+
+**Phase 3: Product Definition**
+- Define value proposition
+- Generate user personas
+- List all possible features
+- Create priority matrix
+- Propose MVP scope
+- **Ask user to confirm MVP** before proceeding
+
+**Phase 4: Roadmap**
+- Define v1.0 MVP details
+- Plan v1.1, v2.0 evolution
+- Estimate timelines
+- Assess risks
+
+**Phase 5: Success Metrics & GTM**
+- Define North Star Metric
+- Set KPIs
+- Create GTM plan
+- Recommend channels
+
+**Phase 6: Generate Output**
+- Create `docs/product/` directory if not exists
+- Generate PRD.md (comprehensive)
+- Generate individual phase reports
+- Save all files
+
+**Phase 7: Summary**
+- List generated files
+- Highlight key recommendations
+- Suggest next steps
 
 ## Progress Display
 
-Show clear progress indicators:
+### Discovery Mode Progress
 
 ```
 Product Planner: AI Product Manager for Developers
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Discovery Mode: Finding Opportunities for You
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 0: Understanding Your Context
+
+[Context collection questions]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 1: Market Trend Analysis
+
+🔍 Scanning market trends and opportunities...
+✓ GitHub Trending analyzed
+✓ Hacker News discussions reviewed
+✓ Reddit communities surveyed
+✓ Product Hunt launches checked
+
+Found:
+- 4 hot trends
+- 5 validated pain points
+- 3 technology opportunities
+- 3 market gaps
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 2: Opportunity Identification
+
+🎯 Generating project opportunities...
+✓ 12 candidates identified
+✓ Filtered to 5 strong opportunities
+✓ Scored and ranked
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Top 3 Recommendations:
+
+🥇 #1: [Name] (Score: 85/100)
+🥈 #2: [Name] (Score: 78/100)
+🥉 #3: [Name] (Score: 72/100)
+
+[Present choices]
+```
+
+### Validation Mode Progress
+
+```
+Product Planner: AI Product Manager for Developers
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Validation Mode: Analyzing Your Idea
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 0: Quick Validation
+
+🔍 Running rapid assessment...
+✓ Time sensitivity check
+✓ Market demand validation
+✓ Competition analysis
+✓ Red flag detection
+
+Assessment: 🟢 Promising - Recommend full analysis
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -367,7 +708,19 @@ Ready to build something great! 🚀
 
 ## Error Handling
 
+**Discovery Mode:**
+- If trend-analyzer fails: Retry once, then use cached trend data or ask user for interest areas
+- If opportunity-scout fails: Generate opportunities based on user context only
+- If user provides vague context: Ask follow-up questions to clarify
+
+**Validation Mode:**
+- If idea-validator recommends Stop: Offer Discovery Mode or alternative directions
 - If agent fails: Retry once, then continue with partial results
 - If user cancels: Save progress to `.product-planner-draft/`
 - If output directory not writable: Ask for alternative location
 - If no internet: Warn that market research will be limited
+
+**General:**
+- If mode unclear: Show mode selection prompt
+- If user switches modes mid-flow: Confirm before switching
+- If incomplete context: Ask clarifying questions rather than making assumptions
